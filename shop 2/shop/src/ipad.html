@@ -219,152 +219,185 @@
       </main>
 
       <sidebar 
-        v-if="showSidebar" 
-        :toggle="toggleSidebar" 
-        :cart="cart"
-      />
+      v-if="showSidebar" 
+      :toggle="toggleSidebar" 
+      :cart="cart"
+      :remove="removeCarrots"
+      :remove2="removePineapples"
+      :remove3="removeCherries"
+      :remove4="removeWater"
+    />
 
-      <footer>
-      </footer>
+    <footer>
+    </footer>
 
-    </div>
-      
-    <script src="https://unpkg.com/vue@next"></script>
-    <script>
-      let app = Vue.createApp({
-        data() {
-          return {
+  </div>
+    
+  <script src="https://unpkg.com/vue@next"></script>
+  <script>
+    let app = Vue.createApp({
+      data() {
+        return {
 
-            showSidebar: false,
-            inventory: {
-              carrots: 0,
-              pineapples: 0,
-              cherries: 0,
-              water: 0
-            },
-            cart: {
-              carrots: 0,
-              pineapples: 0,
-              cherries: 0,
-              water: 0
-            }
-          }
-        },
-        methods: {
-          addToCart(type) {
-            this.cart[type] += this.inventory[type]
-            console.log(this.cart)
+          showSidebar: false,
+          inventory: {
+            carrots: 0,
+            pineapples: 0,
+            cherries: 0,
+            water: 0
           },
-
-          toggleSidebar() {
-            this.showSidebar = !this.showSidebar
-          },
-          priceZeroCherries() {
-            this.cherries = 0;
+          cart: {
+            carrots: 0,
+            pineapples: 0,
+            cherries: 0,
+            water: 0
           }
         }
-      })
+      },
+      methods: {
+        addToCart(type) {
+          this.cart[type] += this.inventory[type]
+          console.log(this.cart)
 
-      app.component('sidebar', {
-        props:['toggle','cart'],
-        computed: {
-          cartTotal() {
-            return ((this.cart.carrots * 50) + (this.cart.pineapples * 1000) + (this.cart.cherries * 1100) + (this.cart.water * 150)).toFixed(2)
+        },
+
+        toggleSidebar() {
+          this.showSidebar = !this.showSidebar
+        },
+        removeCarrots() {
+          if(this.cart.carrots > 0){
+            this.cart.carrots--
           }
         },
-        template: `
-        <aside class="cart-container">
-        <div class="cart">
-          <h1 class="cart-title spread">
-            <span>
-              Cart
-              <i class="icofont-cart-alt icofont-1x"></i>
-            </span>
-            <button @click="toggle" class="cart-close">&times;</button>
-          </h1>
+        removePineapples() {
+          if(this.cart.pineapples > 0){
+            this.cart.pineapples--
+          }
+            
+          console.log(this.cart)
 
-          <div class="cart-body">
-            <table class="cart-table">
-              <thead>
-                <tr>
-                  <th><span class="sr-only">Product Image</span></th>
-                  <th>Product</th>
-                  <th>Qty</th>
-                  <th>Price</th>
-                  <th>Total</th>
-                  <th><span class="sr-only">Actions</span></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
+        },
+        removeCherries() {
+          if(this.cart.cherries > 0){
+            this.cart.cherries--
+          }
+          
+          console.log(this.cart)
 
-                  <td>Earpods</td>
-                  <td>$50</td>
-                  <td class="center"> {{ cart.carrots }} </td>
-                  <td>\${{ cart.carrots * 50 }}</td>
-                  <td class="center">
-                    <button class="btn btn-light cart-remove">
-                      &times;
-                    </button>
-                  </td>
-                </tr>
+        },
+        removeWater() {
+          if(this.cart.water > 0){
+            this.cart.water--
+          }
+          
+          console.log(this.cart)
 
-                <tr>
+        },
+      }
+    })
 
-                  <td>iPhone</td>
-                  <td>$1000</td>
-                  <td class="center"> {{ cart.pineapples }} </td>
-                  <td>\${{ cart.pineapples * 1000 }}</td>
-                  <td class="center">
-                    <button class="btn btn-light cart-remove">
-                      &times;
-                    </button>
-                  </td>
-                </tr>
+    app.component('sidebar', {
+      props:['toggle','cart','remove','remove2','remove3','remove4'],
+      computed: {
+        cartTotal() {
+          return ((this.cart.carrots * 1047) + (this.cart.pineapples * 784) + (this.cart.cherries * 660) + (this.cart.water * 460)).toFixed(2)
+        },
+        total() {
+          return (this.cart.carrots + this.cart.pineapples + this.cart.cherries + this.cart.water)
+        }
+      },
+      template: `
+      <aside class="cart-container">
+      <div class="cart">
+        <h1 class="cart-title spread">
+          <span>
+            Cart
+            <i class="icofont-cart-alt icofont-1x"></i>
+          </span>
+          <button @click="toggle" class="cart-close">&times;</button>
+        </h1>
 
-                <tr>
+        <div class="cart-body">
+          <table class="cart-table">
+            <thead>
+              <tr>
+                <th><span class="sr-only">Product Image</span></th>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Delete</th>
+                <th><span class="sr-only">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
 
-                  <td>Macbook</td>
-                  <td>$1000</td>
-                  <td class="center"> {{ cart.cherries }} </td>
-                  <td>\${{ cart.cherries * 1100 }}</td>
-                  <td class="center">
-                    <button class="btn btn-light cart-remove">
-                      &times;
-                    </button>
-                  </td>
-                </tr>
+                <td>iPad pro</td>
+                <td>$1047</td>
+                <td class="center"> {{ cart.carrots }} </td>
+                <td>\${{ cart.carrots * 1047 }}</td>
+                <td class="center">
+                  <button @click="remove()" class="btn btn-light cart-remove">
+                    &times;
+                  </button>
+                </td>
+              </tr>
 
-                <tr>
+              <tr>
 
-<td>Smart watch</td>
-<td>$300</td>
+                <td>iPad air</td>
+                <td>$784</td>
+                <td class="center"> {{ cart.pineapples }} </td>
+                <td>\${{ cart.pineapples * 784 }}</td>
+                <td class="center">
+                  <button @click="remove2()" class="btn btn-light cart-remove">
+                    &times;
+                  </button>
+                </td>
+              </tr>
+
+              <tr>
+
+                <td>iPad mini</td>
+                <td>$660</td>
+                <td class="center"> {{ cart.cherries }} </td>
+                <td>\${{ cart.cherries * 660 }}</td>
+                <td class="center">
+                  <button @click="remove3()" class="btn btn-light cart-remove">
+                    &times;
+                  </button>
+                </td>
+              </tr>
+
+              <tr>
+
+<td>iPad</td>
+<td>$460</td>
 <td class="center"> {{ cart.water }} </td>
-<td>\${{ cart.water * 150 }}</td>
+<td>\${{ cart.water * 460 }}</td>
 <td class="center">
-  <button class="btn btn-light cart-remove">
-    &times;
-  </button>
+<button @click="remove4()" class="btn btn-light cart-remove">
+  &times;
+</button>
 </td>
 </tr>
 
-              </tbody>
-            </table>
+            </tbody>
+          </table>
 
-            <p class="center"><em>No items in cart</em></p>
-            <div class="spread">
-              <span><strong>Total:</strong> \${{ cartTotal }}</span>
-              <button class="btn btn-light">Checkout</button>
-            </div>
+          <div class="spread">
+            <span><strong>Total:</strong> \${{ cartTotal }} , Items: \{{ total }}</span>
+            <a href="views/checkout.html"> <button class="btn btn-light">Checkout</button> </a>
           </div>
         </div>
-      </aside>
-        `
-      })
-      
+      </div>
+    </aside>
+      `
+    })
+    
 
-      app.mount('#app')
-    </script>
+    app.mount('#app')
+  </script>
   </body>
 </html>
 

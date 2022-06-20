@@ -222,6 +222,10 @@
         v-if="showSidebar" 
         :toggle="toggleSidebar" 
         :cart="cart"
+        :remove="removeCarrots"
+        :remove2="removePineapples"
+        :remove3="removeCherries"
+        :remove4="removeWater"
       />
 
       <footer>
@@ -254,22 +258,52 @@
           addToCart(type) {
             this.cart[type] += this.inventory[type]
             console.log(this.cart)
+
           },
 
           toggleSidebar() {
             this.showSidebar = !this.showSidebar
           },
-          priceZeroCherries() {
-            this.cherries = 0;
-          }
+          removeCarrots() {
+            if(this.cart.carrots > 0){
+              this.cart.carrots--
+            }
+          },
+          removePineapples() {
+            if(this.cart.pineapples > 0){
+              this.cart.pineapples--
+            }
+              
+            console.log(this.cart)
+
+          },
+          removeCherries() {
+            if(this.cart.cherries > 0){
+              this.cart.cherries--
+            }
+            
+            console.log(this.cart)
+
+          },
+          removeWater() {
+            if(this.cart.water > 0){
+              this.cart.water--
+            }
+            
+            console.log(this.cart)
+
+          },
         }
       })
 
       app.component('sidebar', {
-        props:['toggle','cart'],
+        props:['toggle','cart','remove','remove2','remove3','remove4'],
         computed: {
           cartTotal() {
-            return ((this.cart.carrots * 50) + (this.cart.pineapples * 1000) + (this.cart.cherries * 1100) + (this.cart.water * 150)).toFixed(2)
+            return ((this.cart.carrots * 2616) + (this.cart.pineapples * 1138) + (this.cart.cherries * 1730) + (this.cart.water * 930)).toFixed(2)
+          },
+          total() {
+            return (this.cart.carrots + this.cart.pineapples + this.cart.cherries + this.cart.water)
           }
         },
         template: `
@@ -291,19 +325,19 @@
                   <th>Product</th>
                   <th>Qty</th>
                   <th>Price</th>
-                  <th>Total</th>
+                  <th>Delete</th>
                   <th><span class="sr-only">Actions</span></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
 
-                  <td>Earpods</td>
-                  <td>$50</td>
+                  <td>MacBook pro</td>
+                  <td>$2616</td>
                   <td class="center"> {{ cart.carrots }} </td>
-                  <td>\${{ cart.carrots * 50 }}</td>
+                  <td>\${{ cart.carrots * 2616 }}</td>
                   <td class="center">
-                    <button class="btn btn-light cart-remove">
+                    <button @click="remove()" class="btn btn-light cart-remove">
                       &times;
                     </button>
                   </td>
@@ -311,12 +345,12 @@
 
                 <tr>
 
-                  <td>iPhone</td>
-                  <td>$1000</td>
+                  <td>MacBook air</td>
+                  <td>$1138</td>
                   <td class="center"> {{ cart.pineapples }} </td>
-                  <td>\${{ cart.pineapples * 1000 }}</td>
+                  <td>\${{ cart.pineapples * 1138 }}</td>
                   <td class="center">
-                    <button class="btn btn-light cart-remove">
+                    <button @click="remove2()" class="btn btn-light cart-remove">
                       &times;
                     </button>
                   </td>
@@ -324,12 +358,12 @@
 
                 <tr>
 
-                  <td>Macbook</td>
-                  <td>$1000</td>
+                  <td>iMac</td>
+                  <td>$1730</td>
                   <td class="center"> {{ cart.cherries }} </td>
-                  <td>\${{ cart.cherries * 1100 }}</td>
+                  <td>\${{ cart.cherries * 1730 }}</td>
                   <td class="center">
-                    <button class="btn btn-light cart-remove">
+                    <button @click="remove3()" class="btn btn-light cart-remove">
                       &times;
                     </button>
                   </td>
@@ -337,12 +371,12 @@
 
                 <tr>
 
-<td>Smart watch</td>
-<td>$300</td>
+<td>Mac mini</td>
+<td>$930</td>
 <td class="center"> {{ cart.water }} </td>
-<td>\${{ cart.water * 150 }}</td>
+<td>\${{ cart.water * 930 }}</td>
 <td class="center">
-  <button class="btn btn-light cart-remove">
+  <button @click="remove4()" class="btn btn-light cart-remove">
     &times;
   </button>
 </td>
@@ -351,10 +385,9 @@
               </tbody>
             </table>
 
-            <p class="center"><em>No items in cart</em></p>
             <div class="spread">
-              <span><strong>Total:</strong> \${{ cartTotal }}</span>
-              <button class="btn btn-light">Checkout</button>
+              <span><strong>Total:</strong> \${{ cartTotal }} , Items: \{{ total }}</span>
+              <a href="views/checkout.html"> <button class="btn btn-light">Checkout</button> </a>
             </div>
           </div>
         </div>

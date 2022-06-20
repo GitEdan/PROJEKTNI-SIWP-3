@@ -302,7 +302,7 @@
         props:['toggle','cart','remove','remove2','remove3','remove4'],
         computed: {
           cartTotal() {
-            return ((this.cart.carrots * 50) + (this.cart.pineapples * 1000) + (this.cart.cherries * 1100) + (this.cart.water * 150)).toFixed(2)
+            return ((this.cart.carrots * 50) + (this.cart.pineapples * 1000) + (this.cart.cherries * 1100) + (this.cart.water * 300)).toFixed(2)
           },
           total() {
             return (this.cart.carrots + this.cart.pineapples + this.cart.cherries + this.cart.water)
@@ -361,7 +361,7 @@
                 <tr>
 
                   <td>Macbook</td>
-                  <td>$1000</td>
+                  <td>$1100</td>
                   <td class="center"> {{ cart.cherries }} </td>
                   <td>\${{ cart.cherries * 1100 }}</td>
                   <td class="center">
@@ -373,10 +373,10 @@
 
                 <tr>
 
-<td>voda</td>
-<td>$150</td>
+<td>Smartwatch</td>
+<td>$300</td>
 <td class="center"> {{ cart.water }} </td>
-<td>\${{ cart.water * 150 }}</td>
+<td>\${{ cart.water * 300 }}</td>
 <td class="center">
   <button @click="remove4()" class="btn btn-light cart-remove">
     &times;
